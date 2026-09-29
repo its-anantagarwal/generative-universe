@@ -1,46 +1,66 @@
-<style>body{margin:0;overflow:hidden}</style><canvas id=c></canvas><script>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden
+    }
+
+    button {
+        position: fixed;
+        z-index: 1;
+        top: 15px;
+        left: 15px
+    }
+</style>
+<button id=b>Generate Universe</button>
+<canvas id=c></canvas><script>
 c.width=innerWidth
 c.height=innerHeight
 x=c.getContext('2d')
 
-S=[]
-P=[]
-A=[]
-M=[]
-C=[]
-B=[]
+    function gen() {
+        S = []; A = []; P = []; M = []; C = []; B = []
 
-for(i=0;i<300;i++)
- S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
+        // stars
+        for (i = 0; i < 300; i++)
+            S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
 
-for(i=0;i<3;i++)
-A.push([c.width*(.2+i*.3),c.height*(.3+Math.random()*.4),[45,15,205][i],3+Math.random()*3])
+        // solar systems
+        for (i = 0; i < 3; i++)
+            A.push([
+                c.width * (.2 + i * .3),
+                c.height * (.3 + Math.random() * .4),
+                [45, 15, 205][i],
+                3 + Math.random() * 3
+            ])
 
-for(i=0;i<8;i++)
+        // planets
+        for (i = 0; i < 8; i++)
+            P.push([
+                i % 3,
+                5 + Math.random() * 15,
+                [20, 35, 50, 200, 190, 0][Math.random() * 6 | 0],
+                Math.random() < .3,
+                25 + Math.floor(i / 3) * 35 + Math.random() * 8,
+                Math.random() * 7,
+                .001 + Math.random() * .003
+            ])
 
-    P.push([
-        i % 3,
-        5 + Math.random() * 15,
-        [20, 35, 50, 200, 190, 0][Math.random() * 6 | 0],
-        Math.random() < .3,
-        25 + Math.floor(i / 3) * 35 + Math.random() * 8,
-        Math.random() * 7,
-        .001 + Math.random() * .003
-    ])
+        // moons
+        for (i = 0; i < P.length; i++)
+            if (Math.random() < .4)
+                M.push([i, 8 + Math.random() * 6, Math.random() * 7, .005 + Math.random() * .005])
 
-    for(i=0;i<P.length;i++)
-    if(Math.random()<.4)
-    M.push([i,8+Math.random()*6,Math.random()*7,.005+Math.random()*.005])
-
-    for (i = 0; i < 3; i++)
+        // comets
+        for (i = 0; i < 3; i++)
             C.push([
                 Math.random() * c.width,
                 Math.random() * c.height,
                 .5 + Math.random(),
                 .5 + Math.random()
             ])
-    
-    for (i = 0; i < 25; i++)
+
+        // asteroid belts
+        for (i = 0; i < 25; i++)
             B.push([
                 Math.random() * 3 | 0,
                 45 + Math.random() * 20,
@@ -48,6 +68,10 @@ for(i=0;i<8;i++)
                 .002 + Math.random() * .003,
                 1 + Math.random() * 2
             ])
+    }
+
+    gen()
+    b.onclick = gen
 
 function draw(){
  x.fillStyle='#000'
