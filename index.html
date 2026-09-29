@@ -12,9 +12,22 @@ button{
  border-radius:6px;
  cursor:pointer
 }
+#d{
+ display:none;
+ position:fixed;
+ z-index:2;
+ padding:8px;
+ background:#111;
+ color:#fff;
+ border:1px solid #555;
+ border-radius:6px;
+ font:12px sans-serif;
+ pointer-events:none
+}
 </style>
 
 <button id=b>Generate Universe</button>
+<div id=d></div>
 <canvas id=c></canvas>
 <script>
 c.width=innerWidth
@@ -70,7 +83,20 @@ function gen(){
 
 gen()
 b.onclick=gen
-
+c.onclick=e=>{
+ for(p of P){
+  X=A[p[0]][0]+Math.cos(p[5])*p[4]
+  Y=A[p[0]][1]+Math.sin(p[5])*p[4]
+  if(Math.hypot(e.clientX-X,e.clientY-Y)<p[1]){
+   d.style.display='block'
+   d.style.left=e.clientX+10+'px'
+   d.style.top=e.clientY+10+'px'
+   d.innerHTML='Planet<br>Size: '+p[1].toFixed(1)+'<br>System: '+(p[0]+1)
+   return
+  }
+ }
+ d.style.display='none'
+}
 function draw(){
  x.fillStyle='#000'
  x.fillRect(0,0,c.width,c.height)
