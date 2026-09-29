@@ -7,6 +7,7 @@ S=[]
 P=[]
 A=[]
 M=[]
+C=[]
 
 for(i=0;i<300;i++)
  S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
@@ -29,6 +30,14 @@ for(i=0;i<8;i++)
     for(i=0;i<P.length;i++)
     if(Math.random()<.4)
     M.push([i,8+Math.random()*6,Math.random()*7,.005+Math.random()*.005])
+
+    for (i = 0; i < 3; i++)
+            C.push([
+                Math.random() * c.width,
+                Math.random() * c.height,
+                .5 + Math.random(),
+                .5 + Math.random()
+            ])
 
 function draw(){
  x.fillStyle='#000'
@@ -53,6 +62,26 @@ function draw(){
         x.beginPath()
         x.arc(a[0], a[1], a[3], 0, 7)
         x.fill()
+    }
+
+    for (q of C) {
+        q[0] += q[2]
+        q[1] += q[3]
+
+        x.strokeStyle = 'rgba(255,255,255,.7)'
+        x.lineWidth = 1
+        x.beginPath()
+        x.moveTo(q[0], q[1])
+        x.lineTo(q[0] - q[2] * 15, q[1] - q[3] * 15)
+        x.stroke()
+
+        x.fillStyle = '#fff'
+        x.beginPath()
+        x.arc(q[0], q[1], 2, 0, 7)
+        x.fill()
+
+        if (q[0] > c.width) q[0] = 0
+        if (q[1] > c.height) q[1] = 0
     }
 
  for(p of P){
