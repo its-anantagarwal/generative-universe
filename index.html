@@ -20,7 +20,7 @@ for(i=0;i<8;i++)
         5 + Math.random() * 15,
         [20, 35, 50, 200, 190, 0][Math.random() * 6 | 0],
         Math.random() < .3,
-        30 + i % 3 * 25 + Math.random() * 10,
+        25 + Math.floor(i / 3) * 35 + Math.random() * 8,
         Math.random() * 7,
         .001 + Math.random() * .003
     ])
@@ -51,6 +51,11 @@ function draw(){
     }
 
  for(p of P){
+    x.strokeStyle='rgba(255,255,255,.12)'
+    x.lineWidth=1
+    x.beginPath()
+    x.arc(A[p[0]][0], A[p[0]][1], p[4], 0, 7)
+    x.stroke()
 p[5] += p[6]
 X = A[p[0]][0] + Math.cos(p[5]) * p[4]
 Y = A[p[0]][1] + Math.sin(p[5]) * p[4]
