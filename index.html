@@ -8,6 +8,7 @@ P=[]
 A=[]
 M=[]
 C=[]
+B=[]
 
 for(i=0;i<300;i++)
  S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
@@ -37,6 +38,15 @@ for(i=0;i<8;i++)
                 Math.random() * c.height,
                 .5 + Math.random(),
                 .5 + Math.random()
+            ])
+    
+    for (i = 0; i < 25; i++)
+            B.push([
+                Math.random() * 3 | 0,
+                45 + Math.random() * 20,
+                Math.random() * 7,
+                .002 + Math.random() * .003,
+                1 + Math.random() * 2
             ])
 
 function draw(){
@@ -82,6 +92,17 @@ function draw(){
 
         if (q[0] > c.width) q[0] = 0
         if (q[1] > c.height) q[1] = 0
+    }
+
+    for (b of B) {
+        b[2] += b[3]
+        X = A[b[0]][0] + Math.cos(b[2]) * b[1]
+        Y = A[b[0]][1] + Math.sin(b[2]) * b[1]
+
+        x.fillStyle = '#777'
+        x.beginPath()
+        x.arc(X, Y, b[4], 0, 7)
+        x.fill()
     }
 
  for(p of P){
