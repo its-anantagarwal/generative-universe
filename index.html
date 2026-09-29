@@ -1,153 +1,143 @@
 <style>
-    body {
-        margin: 0;
-        overflow: hidden
-    }
-
-    button{
-        position:fixed;
-        z-index:1;
-        top:15px;
-        left:15px;
-        padding:8px 12px;
-        background:#111;
-        color:#fff;
-        border:1px solid #555;
-        border-radius:6px;
-        cursor:pointer
-    }
+body{margin:0;overflow:hidden}
+button{
+ position:fixed;
+ z-index:1;
+ top:15px;
+ left:15px;
+ padding:8px 12px;
+ background:#111;
+ color:#fff;
+ border:1px solid #555;
+ border-radius:6px;
+ cursor:pointer
+}
 </style>
+
 <button id=b>Generate Universe</button>
-<canvas id=c></canvas><script>
+<canvas id=c></canvas>
+<script>
 c.width=innerWidth
 c.height=innerHeight
 x=c.getContext('2d')
 
-    function gen() {
-        S = []; A = []; P = []; M = []; C = []; B = []
+function gen(){
+ S=[];A=[];P=[];M=[];C=[];B=[]
 
-        // stars
-        for (i = 0; i < 300; i++)
-            S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
+ for(i=0;i<300;i++)
+  S.push([Math.random()*c.width,Math.random()*c.height,Math.random()*2,Math.random()*7])
 
-        // solar systems
-        for (i = 0; i < 3; i++)
-            A.push([
-                c.width * (.2 + i * .3),
-                c.height * (.3 + Math.random() * .4),
-                [45, 15, 205][i],
-                3 + Math.random() * 3
-            ])
+ for(i=0;i<3;i++)
+  A.push([
+   c.width*(.2+i*.3),
+   c.height*(.3+Math.random()*.4),
+   [45,15,205][i],
+   3+Math.random()*3
+  ])
 
-        // planets
-        for (i = 0; i < 8; i++)
-            P.push([
-                i % 3,
-                5 + Math.random() * 15,
-                [20, 35, 50, 200, 190, 0][Math.random() * 6 | 0],
-                Math.random() < .3,
-                25 + Math.floor(i / 3) * 35 + Math.random() * 8,
-                Math.random() * 7,
-                .001 + Math.random() * .003
-            ])
+ for(i=0;i<8;i++)
+  P.push([
+   i%3,
+   5+Math.random()*15,
+   [20,35,50,200,190,0][Math.random()*6|0],
+   Math.random()<.3,
+   25+Math.floor(i/3)*35+Math.random()*8,
+   Math.random()*7,
+   .001+Math.random()*.003
+  ])
 
-        // moons
-        for (i = 0; i < P.length; i++)
-            if (Math.random() < .4)
-                M.push([i, 8 + Math.random() * 6, Math.random() * 7, .005 + Math.random() * .005])
+ for(i=0;i<P.length;i++)
+  if(Math.random()<.4)
+   M.push([i,8+Math.random()*6,Math.random()*7,.005+Math.random()*.005])
 
-        // comets
-        for (i = 0; i < 3; i++)
-            C.push([
-                Math.random() * c.width,
-                Math.random() * c.height,
-                .5 + Math.random(),
-                .5 + Math.random()
-            ])
+ for(i=0;i<3;i++)
+  C.push([
+   Math.random()*c.width,
+   Math.random()*c.height,
+   .5+Math.random(),
+   .5+Math.random()
+  ])
 
-        // asteroid belts
-        for (i = 0; i < 25; i++)
-            B.push([
-                Math.random() * 3 | 0,
-                45 + Math.random() * 20,
-                Math.random() * 7,
-                .002 + Math.random() * .003,
-                1 + Math.random() * 2
-            ])
-    }
+ for(i=0;i<25;i++)
+  B.push([
+   Math.random()*3|0,
+   45+Math.random()*20,
+   Math.random()*7,
+   .002+Math.random()*.003,
+   1+Math.random()*2
+  ])
+}
 
-    gen()
-    b.onclick = gen
+gen()
+b.onclick=gen
 
 function draw(){
  x.fillStyle='#000'
  x.fillRect(0,0,c.width,c.height)
 
  for(s of S){
-  x.fillStyle = `rgba(255,255,255,${.5 + .5 * Math.sin(Date.now() / 500 + s[3])})`
+  x.fillStyle=`rgba(255,255,255,${.5+.5*Math.sin(Date.now()/500+s[3])})`
   x.fillRect(s[0],s[1],s[2],s[2])
  }
 
-    for (a of A) {
-        g = x.createRadialGradient(a[0], a[1], 0, a[0], a[1], a[3] * 5)
-        g.addColorStop(0, '#fff')
-        g.addColorStop(.2, `hsl(${a[2]},80%,70%)`)
-        g.addColorStop(1, 'transparent')
-        x.fillStyle = g
-        x.beginPath()
-        x.arc(a[0], a[1], a[3] * 5, 0, 7)
-        x.fill()
+ for(a of A){
+  g=x.createRadialGradient(a[0],a[1],0,a[0],a[1],a[3]*5)
+  g.addColorStop(0,'#fff')
+  g.addColorStop(.2,`hsl(${a[2]},80%,70%)`)
+  g.addColorStop(1,'transparent')
+  x.fillStyle=g
+  x.beginPath()
+  x.arc(a[0],a[1],a[3]*5,0,7)
+  x.fill()
 
-        x.fillStyle = `hsl(${a[2]},80%,70%)`
-        x.beginPath()
-        x.arc(a[0], a[1], a[3], 0, 7)
-        x.fill()
-    }
+  x.fillStyle=`hsl(${a[2]},80%,70%)`
+  x.beginPath()
+  x.arc(a[0],a[1],a[3],0,7)
+  x.fill()
+ }
 
-    for (q of C) {
-        q[0] += q[2]
-        q[1] += q[3]
+ for(q of C){
+  q[0]+=q[2]
+  q[1]+=q[3]
+  x.strokeStyle='rgba(255,255,255,.7)'
+  x.lineWidth=1
+  x.beginPath()
+  x.moveTo(q[0],q[1])
+  x.lineTo(q[0]-q[2]*15,q[1]-q[3]*15)
+  x.stroke()
+  x.fillStyle='#fff'
+  x.beginPath()
+  x.arc(q[0],q[1],2,0,7)
+  x.fill()
+  if(q[0]>c.width)q[0]=0
+  if(q[1]>c.height)q[1]=0
+ }
 
-        x.strokeStyle = 'rgba(255,255,255,.7)'
-        x.lineWidth = 1
-        x.beginPath()
-        x.moveTo(q[0], q[1])
-        x.lineTo(q[0] - q[2] * 15, q[1] - q[3] * 15)
-        x.stroke()
-
-        x.fillStyle = '#fff'
-        x.beginPath()
-        x.arc(q[0], q[1], 2, 0, 7)
-        x.fill()
-
-        if (q[0] > c.width) q[0] = 0
-        if (q[1] > c.height) q[1] = 0
-    }
-
-    for (b of B) {
-        b[2] += b[3]
-        X = A[b[0]][0] + Math.cos(b[2]) * b[1]
-        Y = A[b[0]][1] + Math.sin(b[2]) * b[1]
-
-        x.fillStyle = '#777'
-        x.beginPath()
-        x.arc(X, Y, b[4], 0, 7)
-        x.fill()
-    }
+ for(b of B){
+  b[2]+=b[3]
+  X=A[b[0]][0]+Math.cos(b[2])*b[1]
+  Y=A[b[0]][1]+Math.sin(b[2])*b[1]
+  x.fillStyle='#777'
+  x.beginPath()
+  x.arc(X,Y,b[4],0,7)
+  x.fill()
+ }
 
  for(p of P){
-    x.strokeStyle='rgba(255,255,255,.12)'
-    x.lineWidth=1
-    x.beginPath()
-    x.arc(A[p[0]][0], A[p[0]][1], p[4], 0, 7)
-    x.stroke()
-p[5] += p[6]
-X = A[p[0]][0] + Math.cos(p[5]) * p[4]
-Y = A[p[0]][1] + Math.sin(p[5]) * p[4]
-R = p[1]
+  x.strokeStyle='rgba(255,255,255,.12)'
+  x.lineWidth=1
+  x.beginPath()
+  x.arc(A[p[0]][0],A[p[0]][1],p[4],0,7)
+  x.stroke()
+
+  p[5]+=p[6]
+  X=A[p[0]][0]+Math.cos(p[5])*p[4]
+  Y=A[p[0]][1]+Math.sin(p[5])*p[4]
+  R=p[1]
+
   g=x.createRadialGradient(X-R/3,Y-R/3,0,X,Y,R)
   g.addColorStop(0,'#fff')
-  g.addColorStop(1, `hsl(${p[2]},50%,35%)`)
+  g.addColorStop(1,`hsl(${p[2]},50%,35%)`)
   x.fillStyle=g
   x.beginPath()
   x.arc(X,Y,R,0,7)
@@ -162,18 +152,18 @@ R = p[1]
   }
  }
 
- for (m of M) {
-        p = P[m[0]]
-        m[2] += m[3]
-        X = A[p[0]][0] + Math.cos(p[5]) * p[4]
-        Y = A[p[0]][1] + Math.sin(p[5]) * p[4]
-        X += Math.cos(m[2]) * (p[1] + m[1])
-        Y += Math.sin(m[2]) * (p[1] + m[1])
-        x.fillStyle = '#aaa'
-        x.beginPath()
-        x.arc(X, Y, 2, 0, 7)
-        x.fill()
-    }
+ for(m of M){
+  p=P[m[0]]
+  m[2]+=m[3]
+  X=A[p[0]][0]+Math.cos(p[5])*p[4]
+  Y=A[p[0]][1]+Math.sin(p[5])*p[4]
+  X+=Math.cos(m[2])*(p[1]+m[1])
+  Y+=Math.sin(m[2])*(p[1]+m[1])
+  x.fillStyle='#aaa'
+  x.beginPath()
+  x.arc(X,Y,2,0,7)
+  x.fill()
+ }
 
  requestAnimationFrame(draw)
 }
