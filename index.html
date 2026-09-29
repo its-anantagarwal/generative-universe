@@ -1,0 +1,11 @@
+<style>body{margin:0;overflow:hidden}</style><canvas id=c></canvas><script>
+c.width=innerWidth
+c.height=innerHeight
+x=c.getContext('2d')
+x.fillStyle='#000'
+x.fillRect(0,0,c.width,c.height)
+for(i=0;i<500;i++){
+x.fillStyle='#fff'
+x.fillRect(Math.random()*c.width,Math.random()*c.height,1,1)
+}
+</script>
