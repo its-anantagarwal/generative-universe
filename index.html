@@ -5,7 +5,8 @@ x=c.getContext('2d')
 x.fillStyle='#000'
 x.fillRect(0,0,c.width,c.height)
 for(i=0;i<500;i++){
-x.fillStyle='#fff'
-x.fillRect(Math.random()*c.width,Math.random()*c.height,1,1)
+x.fillStyle=`rgba(255,255,255,${Math.random()})`
+s=Math.random()*2
+x.fillRect(Math.random()*c.width,Math.random()*c.height,s,s)
 }
 </script>
