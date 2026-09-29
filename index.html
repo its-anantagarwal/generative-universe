@@ -7,7 +7,7 @@ S=[]
 P=[]
 
 for(i=0;i<300;i++)
- S.push([Math.random()*c.width,Math.random()*c.height,Math.random()*2])
+ S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
 
 for(i=0;i<8;i++)
  P.push([
@@ -23,7 +23,7 @@ function draw(){
  x.fillRect(0,0,c.width,c.height)
 
  for(s of S){
-  x.fillStyle=`rgba(255,255,255,${.3+Math.random()*.7})`
+  x.fillStyle = `rgba(255,255,255,${.5 + .5 * Math.sin(Date.now() / 500 + s[3])})`
   x.fillRect(s[0],s[1],s[2],s[2])
  }
 
