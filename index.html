@@ -20,5 +20,12 @@ for(i=0;i<8;i++){
     x.beginPath()
     x.arc(X,Y,R,0,7)
     x.fill()
+    if(Math.random()<.3){
+        x.strokeStyle='#aaa'
+        x.lineWidth=2
+        x.beginPath()
+        x.ellipse(X,Y,R*1.7,R*.45,0,0,7)
+        x.stroke()
+    }
 }
 </script>
