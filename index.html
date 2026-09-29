@@ -9,4 +9,16 @@ x.fillStyle=`rgba(255,255,255,${Math.random()})`
 s=Math.random()*2
 x.fillRect(Math.random()*c.width,Math.random()*c.height,s,s)
 }
+for(i=0;i<8;i++){
+    X=Math.random()*c.width
+    Y=Math.random()*c.height
+    R=5+Math.random()*15
+    g=x.createRadialGradient(X-R/3,Y-R/3,0,X,Y,R)
+    g.addColorStop(0,'#fff')
+    g.addColorStop(1,`hsl(${[20,35,50,200,190,0][Math.random()*6|0]},50%,35%)`)
+    x.fillStyle=g
+    x.beginPath()
+    x.arc(X,Y,R,0,7)
+    x.fill()
+}
 </script>
