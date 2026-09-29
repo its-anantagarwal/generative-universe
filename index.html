@@ -6,6 +6,7 @@ x=c.getContext('2d')
 S=[]
 P=[]
 A=[]
+M=[]
 
 for(i=0;i<300;i++)
  S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
@@ -24,6 +25,10 @@ for(i=0;i<8;i++)
         Math.random() * 7,
         .001 + Math.random() * .003
     ])
+
+    for(i=0;i<P.length;i++)
+    if(Math.random()<.4)
+    M.push([i,8+Math.random()*6,Math.random()*7,.005+Math.random()*.005])
 
 function draw(){
  x.fillStyle='#000'
@@ -76,6 +81,19 @@ R = p[1]
    x.stroke()
   }
  }
+
+ for (m of M) {
+        p = P[m[0]]
+        m[2] += m[3]
+        X = A[p[0]][0] + Math.cos(p[5]) * p[4]
+        Y = A[p[0]][1] + Math.sin(p[5]) * p[4]
+        X += Math.cos(m[2]) * (p[1] + m[1])
+        Y += Math.sin(m[2]) * (p[1] + m[1])
+        x.fillStyle = '#aaa'
+        x.beginPath()
+        x.arc(X, Y, 2, 0, 7)
+        x.fill()
+    }
 
  requestAnimationFrame(draw)
 }
