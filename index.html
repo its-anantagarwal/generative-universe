@@ -5,18 +5,25 @@ x=c.getContext('2d')
 
 S=[]
 P=[]
+A=[]
 
 for(i=0;i<300;i++)
  S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
 
+for(i=0;i<3;i++)
+A.push([Math.random()*c.width,Math.random()*c.height])
+
 for(i=0;i<8;i++)
- P.push([
-  Math.random()*c.width,
-  Math.random()*c.height,
-  5+Math.random()*15,
-  [20,35,50,200,190,0][Math.random()*6|0],
-  Math.random()<.3
- ])
+
+    P.push([
+        i % 3,
+        5 + Math.random() * 15,
+        [20, 35, 50, 200, 190, 0][Math.random() * 6 | 0],
+        Math.random() < .3,
+        30 + i % 3 * 25 + Math.random() * 10,
+        Math.random() * 7,
+        .001 + Math.random() * .003
+    ])
 
 function draw(){
  x.fillStyle='#000'
@@ -27,17 +34,36 @@ function draw(){
   x.fillRect(s[0],s[1],s[2],s[2])
  }
 
+    for (a of A) {
+        g = x.createRadialGradient(a[0], a[1], 0, a[0], a[1], 18)
+        g.addColorStop(0, '#fff')
+        g.addColorStop(.2, '#ffd')
+        g.addColorStop(1, 'transparent')
+        x.fillStyle = g
+        x.beginPath()
+        x.arc(a[0], a[1], 18, 0, 7)
+        x.fill()
+
+        x.fillStyle = '#fff'
+        x.beginPath()
+        x.arc(a[0], a[1], 3, 0, 7)
+        x.fill()
+    }
+
  for(p of P){
-  X=p[0];Y=p[1];R=p[2]
+p[5] += p[6]
+X = A[p[0]][0] + Math.cos(p[5]) * p[4]
+Y = A[p[0]][1] + Math.sin(p[5]) * p[4]
+R = p[1]
   g=x.createRadialGradient(X-R/3,Y-R/3,0,X,Y,R)
   g.addColorStop(0,'#fff')
-  g.addColorStop(1,`hsl(${p[3]},50%,35%)`)
+  g.addColorStop(1, `hsl(${p[2]},50%,35%)`)
   x.fillStyle=g
   x.beginPath()
   x.arc(X,Y,R,0,7)
   x.fill()
 
-  if(p[4]){
+  if(p[3]){
    x.strokeStyle='#aaa'
    x.lineWidth=2
    x.beginPath()
