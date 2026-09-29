@@ -39,5 +39,5 @@ Info panel:
 
 <br>
 <br>
-This project was made for the 'Lightweight card: Make a website or app under 5KB challenge
+This project was made for the 'Lightweight card: Make a website or app under 5KB' challenge
 
