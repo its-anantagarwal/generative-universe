@@ -12,7 +12,7 @@ for(i=0;i<300;i++)
  S.push([Math.random() * c.width, Math.random() * c.height, Math.random() * 2, Math.random() * 7])
 
 for(i=0;i<3;i++)
-A.push([c.width*(.2+i*.3),c.height*(.3+Math.random()*.4)])
+A.push([c.width*(.2+i*.3),c.height*(.3+Math.random()*.4),[45,15,205][i],3+Math.random()*3])
 
 for(i=0;i<8;i++)
 
@@ -40,18 +40,18 @@ function draw(){
  }
 
     for (a of A) {
-        g = x.createRadialGradient(a[0], a[1], 0, a[0], a[1], 18)
+        g = x.createRadialGradient(a[0], a[1], 0, a[0], a[1], a[3] * 5)
         g.addColorStop(0, '#fff')
-        g.addColorStop(.2, '#ffd')
+        g.addColorStop(.2, `hsl(${a[2]},80%,70%)`)
         g.addColorStop(1, 'transparent')
         x.fillStyle = g
         x.beginPath()
-        x.arc(a[0], a[1], 18, 0, 7)
+        x.arc(a[0], a[1], a[3] * 5, 0, 7)
         x.fill()
 
-        x.fillStyle = '#fff'
+        x.fillStyle = `hsl(${a[2]},80%,70%)`
         x.beginPath()
-        x.arc(a[0], a[1], 3, 0, 7)
+        x.arc(a[0], a[1], a[3], 0, 7)
         x.fill()
     }
 
